@@ -1,0 +1,12 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+table, th, td {
+    border: 1px solid black;
+  }
+
+table {
+    margin-bottom: 50px;
+}
