@@ -65,6 +65,11 @@ const populateTable = (table, data) => {
   })
 };
 
+const mergeButton = document.getElementById("merge-button");
+mergeButton.addEventListener("click", () => {
+  mergeToResultTable(currentData);
+})
+
 const mergeToResultTable = (currentData) => {
   const fullNameData = createFullName(currentData);
   const mergeDataComplete = mergeFromMergeEnabledColumns(fullNameData); 
@@ -81,6 +86,14 @@ const createFullName = (data) => {
   return newArr;
 };
 
+const checkboxMergeEmail = document.getElementById("checkbox-merge-email");
+const checkboxMergeName = document.getElementById("checkbox-merge-name");
+const checkboxMergeCust1 = document.getElementById("checkbox-merge-cust-1");
+const checkboxMergeCust2 = document.getElementById("checkbox-merge-cust-2");
+const checkboxMergeCust3 = document.getElementById("checkbox-merge-cust-3");
+const checkboxMergeCust4 = document.getElementById("checkbox-merge-cust-4");
+const checkboxMergeCust5 = document.getElementById("checkbox-merge-cust-5");
+
 mergeFromMergeEnabledColumns = (data) => {
   let uniqueObjects = [];
   data.forEach(object => {
@@ -93,27 +106,18 @@ mergeFromMergeEnabledColumns = (data) => {
           uniqueObjects[isAlreadyPresentIdentifier][property] += `;${object[property]}`;
         }
       }
-      if (true) {
-        mergeProperty("email");
+      const mergeIfChecked = (checkbox, property) => {
+        if (checkbox.checked) {
+          mergeProperty(property);
+        }
       }
-      if (true) {
-        mergeProperty("name");
-      }
-      if (true) {
-        mergeProperty("cust1");
-      }
-      if (true) {
-        mergeProperty("cust2");
-      }
-      if (true) {
-        mergeProperty("cust3");
-      }
-      if (true) {
-        mergeProperty("cust4");
-      }
-      if (true) {
-        mergeProperty("cust5");
-      }
+      mergeIfChecked(checkboxMergeEmail, "email");
+      mergeIfChecked(checkboxMergeName, "name");
+      mergeIfChecked(checkboxMergeCust1, "cust1");
+      mergeIfChecked(checkboxMergeCust2, "cust2");
+      mergeIfChecked(checkboxMergeCust3, "cust3");
+      mergeIfChecked(checkboxMergeCust4, "cust4");
+      mergeIfChecked(checkboxMergeCust5, "cust5");
     }
     else {
       return uniqueObjects.push(object);
