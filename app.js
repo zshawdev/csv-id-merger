@@ -89,7 +89,9 @@ mergeFromMergeEnabledColumns = (data) => {
     });
     if (isAlreadyPresentIdentifier !== -1) {
       const mergeProperty = (property) => {
-        uniqueObjects[isAlreadyPresentIdentifier][property] += `;${object[property]}`;
+        if (object[property]) {
+          uniqueObjects[isAlreadyPresentIdentifier][property] += `;${object[property]}`;
+        }
       }
       if (true) {
         mergeProperty("email");
