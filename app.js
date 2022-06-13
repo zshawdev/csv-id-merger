@@ -39,9 +39,28 @@ const resultTable = document.getElementById("result-table");
 const populateTable = (table, data) => {
   data.forEach(object => {
     let row = table.insertRow();
-    for (const value in object) {
-      let cell = row.insertCell();
-      cell.innerHTML = `${object[value]}`;
+    const createCell = (propertyName, index) => {
+      const cell = row.insertCell(index)
+      cell.innerHTML = object[propertyName];
+    }
+    createCell("identifier", 0);
+    createCell("email", 1);
+    if (!object.name) {
+      createCell("firstname", 2);
+      createCell("lastname", 3);
+      createCell("cust1", 4);
+      createCell("cust2", 5);
+      createCell("cust3", 6);
+      createCell("cust4", 7);
+      createCell("cust5", 8);
+
+    } else {
+      createCell("name", 2);
+      createCell("cust1", 3);
+      createCell("cust2", 4);
+      createCell("cust3", 5);
+      createCell("cust4", 6);
+      createCell("cust5", 7);
     }
   })
 };
@@ -98,7 +117,6 @@ mergeFromMergeEnabledColumns = (data) => {
       return uniqueObjects.push(object);
     }
   });
-  console.log(uniqueObjects);
   return uniqueObjects;
 };
 
