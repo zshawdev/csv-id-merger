@@ -13,11 +13,12 @@ csvForm.addEventListener("submit", function (e) {
         populateTable(initTable, data);
         currentData = data;
     };
+
     reader.readAsText(input);
 });
 
 function csvToArray(str, delimiter = ",") {
-    const headers = str.slice(0, str.indexOf("\n")).replace("\r", "").replace(" ", "").toLowerCase().split(delimiter);
+    const headers = str.slice(0, str.indexOf("\n")).replace("\r", "").replaceAll(" ", "").toLowerCase().split(delimiter);
     const rows = str.slice(str.indexOf("\n") + 1).replaceAll("\r", "").split("\n");
 
     const arr = rows.map(function (row) {
@@ -43,5 +44,61 @@ const populateTable = (table, data) => {
       cell.innerHTML = `${object[value]}`;
     }
   })
+};
+
+const mergeToResultTable = (currentData) => {
+  const fullNameData = createFullName(currentData);
+  const mergeDataComplete = mergeFromMergeEnabledColumns(fullNameData); 
+  populateTable(resultTable, mergeDataComplete);
+};
+
+const createFullName = (data) => {
+  const newArr = data.map(object => {
+    object.name = `${object.firstname} ${object.lastname}`;
+    delete object.firstname;
+    delete object.lastname;
+    return object;
+  });
+  return newArr;
+};
+
+mergeFromMergeEnabledColumns = (data) => {
+  let uniqueObjects = [];
+  data.forEach(object => {
+    const isAlreadyPresentIdentifier = uniqueObjects.findIndex(matchingObject => {
+      return matchingObject.identifier === object.identifier
+    });
+    if (isAlreadyPresentIdentifier !== -1) {
+      const mergeProperty = (property) => {
+        uniqueObjects[isAlreadyPresentIdentifier][property] += `;${object[property]}`;
+      }
+      if (true) {
+        mergeProperty("email");
+      }
+      if (true) {
+        mergeProperty("name");
+      }
+      if (true) {
+        mergeProperty("cust1");
+      }
+      if (true) {
+        mergeProperty("cust2");
+      }
+      if (true) {
+        mergeProperty("cust3");
+      }
+      if (true) {
+        mergeProperty("cust4");
+      }
+      if (true) {
+        mergeProperty("cust5");
+      }
+    }
+    else {
+      return uniqueObjects.push(object);
+    }
+  });
+  console.log(uniqueObjects);
+  return uniqueObjects;
 };
 
